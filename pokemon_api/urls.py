@@ -19,8 +19,9 @@ from pokemonapi import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("pokemon/<int:codigo>", views.Pokemonview.as_view(), name="pokemon"),
-    path("pokemon-info/<str:pokemon_name>",
+    path("evolution-chain/<int:codigo>",
+         views.Pokemonview.as_view(), name="pokemon"),
+    path("pokemon/<str:pokemon_name>",
          views.Pokemoninfoview.as_view(), name="pokemon_info"),
 
 ]
