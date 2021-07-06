@@ -12,4 +12,4 @@ class Pokemons(models.Model):
     height = models.CharField(max_length=255)
     weight = models.CharField(max_length=255)
     evolutions = models.CharField(max_length=255, null=True)
-
+    prevolution = models.CharField(max_length=255, null=True)
