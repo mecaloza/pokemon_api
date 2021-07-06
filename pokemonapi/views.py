@@ -13,7 +13,7 @@ import json
 
 class Pokemonview(APIView):
     def get(self, request, codigo):
-        print("HOlis")
+
         url = "https://pokeapi.co/api/v2/evolution-chain/" + str(codigo)
         response = requests.get(url)
         content = []
@@ -70,8 +70,8 @@ class Pokemonview(APIView):
                             content.append(pokemon_info)
                         except Exception as e:
                             print(e)
-                            print("Esta cadena ya fue creada")
-                            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+                            return Response("Esta cadena ya fue creada", status=status.HTTP_400_BAD_REQUEST)
                         chain_evol = chain_evol["evolves_to"][0]
 
                 except Exception as e:
@@ -85,7 +85,11 @@ class Pokemonview(APIView):
 class Pokemoninfoview(APIView):
     def get(self, request, pokemon_name):
         content = {}
-        pokemon = Pokemons.objects.get(pokemon_name=pokemon_name)
+        try:
+            pokemon = Pokemons.objects.get(pokemon_name=pokemon_name)
+        except:
+            return Response("Este pokemon no esta registrado en la base de datos", status=status.HTTP_400_BAD_REQUEST)
+
         content["id"] = pokemon.pokemon_id
         print(pokemon.pokemon_id)
         content["pokemon_name"] = pokemon.pokemon_name
